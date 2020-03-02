@@ -1,13 +1,11 @@
 {
   "name": "phaser-project-template",
-  
   "description": "Phaser 3 starter template with TypeScript and webpack.",
-  
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js",
     "build": "webpack --config webpack/webpack.prod.js",
-    "preload":"tsc ./src/utils/preload.ts && node ./src/utils/preload.js"
+    "preload": "tsc ./src/utils/preload.ts && node ./src/utils/preload.js"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -30,3 +28,4 @@
     "phaser": "^3.21.0"
   }
 }
+

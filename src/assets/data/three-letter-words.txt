@@ -105,8 +105,6 @@ dye
 ear
 eat
 ebb
-ecu
-eft
 egg
 ego
 elf
@@ -114,7 +112,6 @@ elm
 emu
 end
 era
-eta
 eve
 eye
 fab

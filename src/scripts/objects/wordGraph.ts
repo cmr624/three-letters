@@ -14,6 +14,9 @@ export class Graph {
         //this.adjacencyList.get(w).push(v) if graph is un directed 
     }
 
+    deleteVertex(v){
+        this.adjacencyList.delete(v);
+    }
     getListAtVertex(vertex){
         return this.adjacencyList.get(vertex);
     }
@@ -44,7 +47,7 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
             this.letterGraph.getListAtVertex(getLastCharacter(word))
                 ?.forEach((wordInAdjacencyList) => {
                     this.wordGraph.addEdge(word, wordInAdjacencyList);
-                })
+                });
         });
     }
 
@@ -54,8 +57,20 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
     }
     generatePuzzle() : PuzzleData{
         let firstWord = this.pickFirstWord();
-        let secondWord = getRandomItemFromArray(this.wordGraph.getListAtVertex(firstWord));
-        let thirdWord = getRandomItemFromArray(this.wordGraph.getListAtVertex(secondWord));
+        let firstWordList = this.wordGraph.getListAtVertex(firstWord);
+        while (firstWordList === undefined || firstWordList.length === 0) {
+            firstWord = this.pickFirstWord();
+            firstWordList = this.wordGraph.getListAtVertex(firstWord);
+        }
+
+        let secondWord = getRandomItemFromArray(firstWordList);
+        let secondWordList = this.wordGraph.getListAtVertex(secondWord);
+        while (secondWordList === undefined || secondWordList.length === 0) {
+            secondWord = getRandomItemFromArray(firstWordList);
+            secondWordList = this.wordGraph.getListAtVertex(secondWord);
+        }
+
+        let thirdWord = getRandomItemFromArray(secondWordList);
 
         let lettersBank : Array<string> = new Array<string>();
         let firstWordArr = firstWord.split('');

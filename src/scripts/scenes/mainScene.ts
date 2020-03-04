@@ -14,7 +14,7 @@ export default class MainScene extends Phaser.Scene {
     new DraggableManager(this);
     
 
-    let zone = this.add.zone(500, 200, 150, 150).setRectangleDropZone(150, 150);
+    //let zone = this.add.zone(500, 200, 150, 150).setRectangleDropZone(150, 150);
     // let tiles = this.createTiles();
 
     let bank = new ThreeLetterWordBank(this);

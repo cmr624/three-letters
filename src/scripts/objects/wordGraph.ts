@@ -34,8 +34,9 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
         this.letterGraph = new Graph();
         this.wordGraph = new Graph();
         lettersArray.forEach(letter => this.letterGraph.addVertex(letter));
-
+        console.time('graph');
         this.loadGraph();
+        console.timeEnd('graph');
     }
 
     loadGraph(){
@@ -56,6 +57,7 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
         return getRandomItemFromArray(arr);
     }
     generatePuzzle() : PuzzleData{
+        console.time('generate puzzle');
         let firstWord = this.pickFirstWord();
         let firstWordList = this.wordGraph.getListAtVertex(firstWord);
         while (firstWordList === undefined || firstWordList.length === 0) {
@@ -82,9 +84,10 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
 
         lettersBank.push(thirdWord.split('')[1]);
         lettersBank.push(thirdWord.split('')[2]);
-
+        const puzzle : PuzzleData = {firstWord : firstWord, secondWord : secondWord, thirdWord : thirdWord, lettersBank:shuffle(lettersBank)}
+        console.timeEnd('generate puzzle');
         
-        return {firstWord : firstWord, secondWord : secondWord, thirdWord : thirdWord, lettersBank:shuffle(lettersBank)}
+        return puzzle
 
     }
 }

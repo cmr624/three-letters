@@ -1,10 +1,9 @@
 import { PRELOADED_KEYS } from '../../utils/dist/preloadedKeyObject';
 
 import { defaultText } from './../cm-phaser-library/src/objects/textStyles';
-
-import {DraggableSprite} from '../cm-phaser-library/src/sprites/interactive/draggableSprite';
 import DraggableManager from '../cm-phaser-library/src/managers/draggableManager';
 import { LetterTile } from '../objects/letterTile';
+import { ThreeLetterWordBank } from '../objects/wordGraph';
 export default class MainScene extends Phaser.Scene {
 
   constructor() {
@@ -17,6 +16,9 @@ export default class MainScene extends Phaser.Scene {
 
     let zone = this.add.zone(500, 200, 150, 150).setRectangleDropZone(150, 150);
     let tiles = this.createTiles();
+
+    let bank = new ThreeLetterWordBank(this);
+    bank.generatePuzzle();
   }
 
   update() {

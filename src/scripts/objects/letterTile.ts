@@ -25,15 +25,16 @@ export class LetterTile extends DraggableContainer{
 
     dragStart(){
         super.dragStart();
+        this.parentContainer.bringToTop(this);
         this.sprite.setTexture(PRELOADED_KEYS["TILE-BG-PRESSED"].key);
     }
 
     drop(){
         super.drop();
         this.sprite.setTexture(PRELOADED_KEYS["TILE-BG-OPEN"].key);
-        if (!this.inDestination) {
-            this.moveToDefaultPosition();
-        }
+        // if (!this.inDestination) {
+        //     this.moveToDefaultPosition();
+        // }
     }
 
     inDestinationX;

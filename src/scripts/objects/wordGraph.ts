@@ -48,7 +48,70 @@ export class ThreeLetterWordBank extends Phaser.GameObjects.GameObject {
         });
     }
 
-    generatePuzzle(){
-        console.log(this.wordGraph.getListAtVertex("eat"));
+    pickFirstWord() : string {
+        let arr = this.letterGraph.getListAtVertex(getRandomItemFromArray(lettersArray));
+        return getRandomItemFromArray(arr);
     }
+    generatePuzzle() : PuzzleData{
+        let firstWord = this.pickFirstWord();
+        let secondWord = getRandomItemFromArray(this.wordGraph.getListAtVertex(firstWord));
+        let thirdWord = getRandomItemFromArray(this.wordGraph.getListAtVertex(secondWord));
+
+        let lettersBank : Array<string> = new Array<string>();
+        let firstWordArr = firstWord.split('');
+        firstWordArr.forEach((letter) => {
+            lettersBank.push(letter);
+        })
+        lettersBank.push(secondWord.split('')[1]);
+        lettersBank.push(secondWord.split('')[2]);
+
+        lettersBank.push(thirdWord.split('')[1]);
+        lettersBank.push(thirdWord.split('')[2]);
+
+        
+        return {firstWord : firstWord, secondWord : secondWord, thirdWord : thirdWord, lettersBank:shuffle(lettersBank)}
+
+    }
+}
+
+export interface PuzzleData {
+    firstWord : string;
+    secondWord : string;
+    thirdWord : string;
+    lettersBank : Array<string>;
+}
+
+export function shuffle(array) {
+    let ctr = array.length;
+    let temp;
+    let index;
+
+    // While there are elements in the array
+    while (ctr > 0) {
+        // Pick a random index
+        index = Math.floor(Math.random() * ctr);
+        // Decrease ctr by 1
+        ctr--;
+        // And swap the last element with it
+        temp = array[ctr];
+        array[ctr] = array[index];
+        array[index] = temp;
+    }
+    return array;
+}
+
+export function getRandomItemFromArray(array){
+    return array[rand(0, array.length - 1)];
+
+}
+
+/**
+ * random integer generator between two values inclusive
+ * @param min minimum integer (inclusive)
+ * @param max maximum integer (inclusive)
+ */
+export function rand(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

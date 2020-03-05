@@ -4,7 +4,7 @@ import { defaultText } from './../cm-phaser-library/src/objects/textStyles';
 import DraggableManager from '../cm-phaser-library/src/managers/draggableManager';
 import { LetterTile } from '../objects/letterTile';
 import { ThreeLetterWordBank, PuzzleData } from '../objects/wordGraph';
-import {RegularPuzzleTile} from '../objects/puzzleTile';
+import {RegularPuzzleTile, DoubleLetterPuzzleTileZone} from '../objects/puzzleTile';
 
 export default class MainScene extends Phaser.Scene {
 
@@ -22,6 +22,7 @@ export default class MainScene extends Phaser.Scene {
     new DraggableManager(this);
     let bank = new ThreeLetterWordBank(this);
     let puzzle : PuzzleData = bank.generatePuzzle(); 
+    console.log(puzzle);
     this.buildBoard();
     let tiles = this.createTiles(puzzle.lettersBank);
   }
@@ -31,7 +32,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buildBoard(){
-
+    /*
     for (let i = 0; i < 3; i++) {
       new RegularPuzzleTile(this, (i * 50) + 32, 180);
       // console.log((i * 50) + 40);
@@ -44,7 +45,8 @@ export default class MainScene extends Phaser.Scene {
     for (let i = 0; i < 3; i++) {
       new RegularPuzzleTile(this, 242 + (i * 50), 300);
     }
-
+*/
+    new DoubleLetterPuzzleTileZone(this, 132, 180);
 
   }
 

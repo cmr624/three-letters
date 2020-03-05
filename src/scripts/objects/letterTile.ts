@@ -45,7 +45,6 @@ export class LetterTile extends DraggableContainer{
         this.inDestinationY = this.y;
         this.x = dropZone.getCenter().x;
         this.y = dropZone.getCenter().y;
-
     }
 
     moveToDefaultPosition(){

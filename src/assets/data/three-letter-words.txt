@@ -189,7 +189,6 @@ jam
 jar
 jaw
 jet
-jew
 job
 joe
 jog

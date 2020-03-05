@@ -32,22 +32,13 @@ export default class MainScene extends Phaser.Scene {
   }
 
   buildBoard(){
-    /*
     for (let i = 0; i < 3; i++) {
-      new RegularPuzzleTile(this, (i * 50) + 32, 180);
-      // console.log((i * 50) + 40);
+      new RegularPuzzleTile(this, (i * 50) + 50, 180);
     }
+    new RegularPuzzleTile(this, 150, 230);
     for (let i = 0; i < 3; i++) {
-      new RegularPuzzleTile(this, 132 + (i * 50), 240);
-      // console.log((i * 50) + 150);
-
+      new RegularPuzzleTile(this, 150 + (i * 50), 280);
     }
-    for (let i = 0; i < 3; i++) {
-      new RegularPuzzleTile(this, 242 + (i * 50), 300);
-    }
-*/
-    new DoubleLetterPuzzleTileZone(this, 132, 180);
-
   }
 
   createTiles(array : Array<string>){

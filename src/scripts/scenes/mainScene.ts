@@ -4,23 +4,25 @@ import { defaultText } from './../cm-phaser-library/src/objects/textStyles';
 import DraggableManager from '../cm-phaser-library/src/managers/draggableManager';
 import { LetterTile } from '../objects/letterTile';
 import { ThreeLetterWordBank, PuzzleData } from '../objects/wordGraph';
+import {RegularPuzzleTile} from '../objects/puzzleTile';
+
 export default class MainScene extends Phaser.Scene {
 
+  HEIGHT : number;
+  WIDTH : number;
   constructor() {
-    super({ key: 'MainScene' })
+    super({ key: 'MainScene' });
+
+
   }
 
   create() {
+    this.HEIGHT = this.game.scale.height;
+    this.WIDTH = this.game.scale.width;
     new DraggableManager(this);
-    
-
-    //let zone = this.add.zone(500, 200, 150, 150).setRectangleDropZone(150, 150);
-    // let tiles = this.createTiles();
-
     let bank = new ThreeLetterWordBank(this);
-    // console.log(bank.generatePuzzle());
-    let puzzle : PuzzleData = bank.generatePuzzle();
-    console.log(puzzle);
+    let puzzle : PuzzleData = bank.generatePuzzle(); 
+    this.buildBoard();
     let tiles = this.createTiles(puzzle.lettersBank);
   }
 
@@ -28,21 +30,40 @@ export default class MainScene extends Phaser.Scene {
     
   }
 
-  createTiles(array : Array<string>){
-    let tiles = this.add.container(200, 800);
-    for (let i = 0; i < array.length; i++) {
-      tiles.add(new LetterTile(this, 0, 0, array[i].toUpperCase()));
+  buildBoard(){
+
+    for (let i = 0; i < 3; i++) {
+      new RegularPuzzleTile(this, (i * 50) + 32, 180);
+      // console.log((i * 50) + 40);
     }
-    Phaser.Actions.GridAlign(tiles.getAll(), {
-      width: 10,
-      height: 10,
-      cellWidth: 150,
-      cellHeight: 150,
-      x: 0,
-      y: 0
+    for (let i = 0; i < 3; i++) {
+      new RegularPuzzleTile(this, 132 + (i * 50), 240);
+      // console.log((i * 50) + 150);
+
+    }
+    for (let i = 0; i < 3; i++) {
+      new RegularPuzzleTile(this, 242 + (i * 50), 300);
+    }
+
+
+  }
+
+  createTiles(array : Array<string>){
+    let tiles = new Array<LetterTile>();
+    for (let i = 0; i < array.length; i++) {
+      tiles.push(new LetterTile(this, 0, 0, array[i].toUpperCase()));
+    }
+
+    Phaser.Actions.GridAlign(tiles, {
+      width: 7,
+      height: 1,
+      cellWidth: this.WIDTH/ 7,
+      cellHeight: this.HEIGHT / 7,
+      x: tiles[0].width / 2,
+      y: this.HEIGHT * .75,
     })
-    let arr : Array<LetterTile> = tiles.getAll() as Array<LetterTile>;
-    arr.forEach((e) => {
+    
+    tiles.forEach((e) => {
       e.setDefaultPosition(e.x, e.y);
     })
     return tiles;

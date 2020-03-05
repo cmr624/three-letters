@@ -19,13 +19,12 @@ export class LetterTile extends DraggableContainer{
         this.text = this.scene.add.text(0, 0, this.letter, defaultText).setOrigin(.5);
         this.add(this.text);
         this.initInteractive();
-        this.setScale(2);
         this.inDestination = false;
     }
 
     dragStart(){
         super.dragStart();
-        this.parentContainer.bringToTop(this);
+        //this.parentContainer.bringToTop(this);
         this.sprite.setTexture(PRELOADED_KEYS["TILE-BG-PRESSED"].key);
     }
 
@@ -39,10 +38,14 @@ export class LetterTile extends DraggableContainer{
 
     inDestinationX;
     inDestinationY;
-    dropOnTarget(){
+    dropOnTarget(dropZone : Phaser.GameObjects.Zone){
+        super.dropOnTarget(dropZone);
         this.inDestination = true;
         this.inDestinationX = this.x;
         this.inDestinationY = this.y;
+        this.x = dropZone.getCenter().x;
+        this.y = dropZone.getCenter().y;
+
     }
 
     moveToDefaultPosition(){
